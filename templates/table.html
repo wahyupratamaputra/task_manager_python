@@ -1,0 +1,48 @@
+{% if projects %}
+<table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Project Title</th>
+        <th>Day Created</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td><a href="/view_project/{{project.id}}" class="btn btn-primary">Task</td>
+            <td>{{project.title}}</td>
+            <td>{{project.created_at.strftime("%A, %B %d, %Y - %H:%M %p")}}</td>
+            <td>
+                <a href="/update/{{project.id}}" class="btn btn-warning">Edit</a>
+                <a href="/delete/{{project.id}}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% elif tasks %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{task.description}}</td>
+            <td>
+                <a href="{{url_for('updatetask', task_id = task.id)}}" class="btn btn-warning">Edit</a>
+                <a href="{{url_for('deletetask', task_id = task.id, project_id = task.project_id)}}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endif %}
